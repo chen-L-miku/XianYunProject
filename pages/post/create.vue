@@ -77,6 +77,7 @@ export default {
     };
   },
   mounted() {
+
     //console.log(555,this.$store); //this.$store.state.post.draft
     if (!this.$store.state.post.draft.slice(0)) {
        this.save = [] 
@@ -231,29 +232,30 @@ export default {
     },
     // 点击保存到草稿箱时触发
     handleSave() {
-      if (!this.$store.state.user.userInfo.token) {
-        this.$confirm("请先登录再操作,按确认返回登录页", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "放弃保存",
-          type: "warning"
-        })
-        .then(() => {
-          this.$message({
-            type: "warning",
-            message: "稍等，正在跳转登录页"
-          });
-          setTimeout(() => {
-            this.$router.push({ path: "/user/login" });
-          }, 1000);
-        })
-        .catch(() => {
-          this.$message({
-            type: "warning",
-            message: "您已取消保存草稿"
-          });
-        });
-        return;
-      }
+      // 权限验证
+      // if (!this.$store.state.user.userInfo.token) {
+      //   this.$confirm("请先登录再操作,按确认返回登录页", "提示", {
+      //     confirmButtonText: "确定",
+      //     cancelButtonText: "放弃保存",
+      //     type: "warning"
+      //   })
+      //   .then(() => {
+      //     this.$message({
+      //       type: "warning",
+      //       message: "稍等，正在跳转登录页"
+      //     });
+      //     setTimeout(() => {
+      //       this.$router.push({ path: "/user/login" });
+      //     }, 1000);
+      //   })
+      //   .catch(() => {
+      //     this.$message({
+      //       type: "warning",
+      //       message: "您已取消保存草稿"
+      //     });
+      //   });
+      //   return;
+      // }
       if (this.num < 5) {
         this.num += 1;
       }
