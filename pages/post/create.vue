@@ -77,6 +77,15 @@ export default {
     };
   },
   mounted() {
+    //console.log(555,this.$store); //this.$store.state.post.draft
+    if (!this.$store.state.post.draft.slice(0)) {
+       this.save = [] 
+    }else {
+       this.save = this.$store.state.post.draft.slice(0)
+       console.log(666,this.$store.state.post.draft.slice(0));
+       this.num = this.save.length 
+    }
+   
     // console.log("app init, my quill insrance object is:", this.myQuillEditor);
     // setTimeout(() => {
     //   this.content = "";
@@ -85,21 +94,27 @@ export default {
     //   "111",
     //   JSON.parse(localStorage.getItem("create") || "[]").slice(-1)[0]
     // );
-    if (!JSON.parse(localStorage.getItem("create") || "[]").slice(-1)[0]) {
-      this.save = [];
-    } else {
-      this.save = JSON.parse(localStorage.getItem("create") || "[]").slice(
-        -1
-      )[0];
-      this.num = this.save.length;
-      if (JSON.parse(localStorage.getItem("create") || "[]").length>1) {
-          const createx = JSON.parse(localStorage.getItem("create") || "[]").slice(-1);
-          localStorage.setItem("create", JSON.stringify(createx));
-      } 
-    }
+
+    // if (!JSON.parse(localStorage.getItem("create") || "[]").slice(-1)[0]) {
+    //   this.save = [];
+    // } else {
+    //   this.save = JSON.parse(localStorage.getItem("create") || "[]").slice(
+    //     -1
+    //   )[0];
+    //   this.num = this.save.length;
+    //   if (JSON.parse(localStorage.getItem("create") || "[]").length>1) {
+    //       const createx = JSON.parse(localStorage.getItem("create") || "[]").slice(-1);
+    //       localStorage.setItem("create", JSON.stringify(createx));
+    //   } 
+    // }
+
     // this.save = this.$store.state.create.draft
   },
+  destroyed () {
+       this.$store.commit('post/setDraft',this.save)
+  },
   methods: {
+    
     // 编辑草稿
     reStrategy (item) {
         this.selects = item.city
@@ -258,9 +273,9 @@ export default {
       if (this.save.length > 5) {
         this.save.length = 5;
       }
-      const create = JSON.parse(localStorage.getItem("create") || "[]");
-      create.push(this.save);
-      localStorage.setItem("create", JSON.stringify(create));
+      // const create = JSON.parse(localStorage.getItem("create") || "[]");
+      // create.push(this.save);
+      // localStorage.setItem("create", JSON.stringify(create));
     }
   }
 };
