@@ -144,6 +144,8 @@ export default {
 
                 // 缓存数据一旦赋值之后不能再被修改
                 this.cacheFlightsData = {...res.data};
+                console.log(res);
+                
                 
                 // 总条数
                 this.total = this.flightsData.flights.length;
