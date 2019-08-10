@@ -133,6 +133,7 @@ export default {
         });
     },
   },
+  // 监听路由的变化
   watch: {
     $route() {
       this.getAtrText();
@@ -141,6 +142,7 @@ export default {
   mounted() {
     this.getAtrText();
   },
+  // 日期过滤器
   filters: {
     formatDate: function(value) {
       let date = new Date(value);
