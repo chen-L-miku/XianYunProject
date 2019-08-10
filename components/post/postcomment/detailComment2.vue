@@ -1,6 +1,6 @@
 <template>
   <div class="item">
-    <item v-if="item.parent" :item="item.parent" @reply="reply" :index="index-1" />
+    <item v-if="item.parent" :item="item.parent"  @ReplyComment="ReplyComment" :index="index-1" />
     <div class="head">
       <span class="name">{{item.account.nickname}}</span>
       <span class="time">{{item.updated_at|formatDate}}</span>
@@ -8,13 +8,12 @@
     </div>
     <div class="comment">
       <p>{{item.content}}</p>
-      <span class="replybtn" @click="$emit('reply',item)">回复</span>
+      <span class="replybtn" @click="$emit('ReplyComment',item)">回复</span>
     </div>
   </div>
 </template>
 
 <script>
-import moment from "moment";
 export default {
   name: "item",
   // 父传子
@@ -30,8 +29,9 @@ export default {
   },
   // 方法
   methods: {
-    reply(item) {
-      this.$emit("reply", item);
+    ReplyComment(item) {
+      this.$emit("ReplyComment", item);
+      
     }
   },
   // 过滤
@@ -91,13 +91,13 @@ export default {
     padding-left: 20px;
     // 索引
 
-    > p {
+    p {
       position: relative;
       font-size: 14px;
       color: black;
     }
     // 回复按钮
-    > .replybtn {
+     .replybtn {
       display: none;
       position: absolute;
       bottom: 3px;

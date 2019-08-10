@@ -41,8 +41,8 @@
 export default {
   props: {
     data: {
-      type:Number,
-      default: 0,
+      type:String,
+      default:'',
     }
   },
   data() {
@@ -51,7 +51,7 @@ export default {
     };
   },
   methods: {
-    //点赞
+    //点赞功能
     getLike() {
       var id = this.$route.query.id;
       var token = this.$store.state.user.userInfo.token;
@@ -84,7 +84,7 @@ export default {
           console.log(err);
         });
     },
-    //收藏
+    //收藏功能
     getStar() {
       var id = this.$route.query.id;
       var token = this.$store.state.user.userInfo.token;
@@ -131,7 +131,7 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    }
+    },
   },
   watch: {
     $route() {
