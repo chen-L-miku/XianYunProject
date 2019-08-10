@@ -1,49 +1,63 @@
 <template>
-    <div style="padding: 50px;">
-        组件递归
-        
-        <Item v-for="(item, index) in list" :key="index" :data="item">
-        </item>
-    </div>
+  <div class="container">
+    <el-row type="flex" justify='space-between'>
+      
+          <div class="postleft">
+            <asideMenus @getCityName='getCityName'/>
+          </div>
+
+          <div class="postright">
+            <postList :data='cityName'/>
+          </div>
+
+    </el-row>
+  </div>
 </template>
-
 <script>
-import Item from "@/components/post/item"
+import asideMenus from "@/components/post/asideMenus.vue";
+import postList from "@/components/post/postList.vue";
 export default {
-
-    data(){
-        return {
-            list: [
-                {
-                    title: "衣服",
-                    children: [
-                        { title: "男装" , children: [
-                            { title: "老男人" },
-                            { title: "正规男装" },
-                        ]} ,
-                        { title: "女装", children: [
-                            { title:  "正规女装"},
-                            { title:  "正规透视装"},
-                        ] },
-                        { title: "童装" }
-                    ]
-                },
-                 {
-                    title: "电器", children: [
-                         { title: "正规按摩椅" },
-                         { title: "正规电饭煲" },
-                    ]
-                }
-            ]
-        }
-    },
-
-    components: {
-        Item
+  data() {
+    return {
+      cityName:''
+    };
+  },
+  components: {
+    asideMenus,
+    postList
+  },
+  methods:{
+    getCityName(data){
+      console.log('城市名称',data)
+      this.cityName=data
     }
-}
+  }
+};
 </script>
+<style lang="less" scoped>
+.container {
+  width: 1000px;
+  height: 1500px;
+  margin: 10px auto;
 
-<style>
-
+  .postleft{
+    width:300px;
+    height: 1500px;
+    // border: 1px solid red;
+    z-index: 3;
+  }
+  .postright{
+    width:700px;
+      height: 1500px;
+    // border: 1px solid red;
+    z-index: 1;
+    margin-left: 20px;
+  }
+}
 </style>
+
+
+
+
+
+
