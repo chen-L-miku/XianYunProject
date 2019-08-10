@@ -47,7 +47,7 @@
           <div class="comment">
             <!-- 二级循环 -->
             <DetailComment2 v-if="item.parent" :item="item.parent" @reply="reply" :index="item|index" />
-            <p>{{item.content}}</p>
+            <p style="font-size:14px;color:black;">{{item.content}}</p>
             <span class="replybtn" style="float:right;" @click="ReplyComment">回复</span>
             <div class="img" v-if="item.pics.length">
               <div
@@ -136,8 +136,8 @@ export default {
     handleSizeChange(size) {
       // 修改分页条数
       this.page._limit = size;
-      // 获取分页的数据
-      this.getDataList();
+      //重新发请求获取文章评论数据
+      this.getCommentList();
     },
 
     // 切换页数时候触发
@@ -145,17 +145,8 @@ export default {
       // 修改页数
       this.page._start = pagenum;
 
-      // 获取分页的数据
-      this.getDataList();
-    },
-
-    // 获取分页的数据
-    getDataList(commentList) {
-      // 修改dataList的数据 //0 | 2 //2 | 4
-      /*   this.dataList = this.flightsData.flights.slice(
-        (this.pageIndex - 1) * this.pageSize,
-        (this.pageIndex - 1) * this.pageSize + this.pageSize
-      ); */
+     //重新发请求获取文章评论数据
+      this.getCommentList();
     },
     //添加评论
     addConment() {
