@@ -44,7 +44,7 @@
         >提交</el-button>
       </el-row>
     </div>
-    <!-- 评论回复框 -->
+    <!-- 评论回复框 --> 
     <!-- 一级循环 -->
     <div class="cmt-list" v-if="commentList.length">
       <div class="cmt-item" v-for="(item,i) in commentList" :key="i+Math.random(100)">
@@ -52,7 +52,7 @@
         <div class="cmt-info">
           <img class="head" src="http://127.0.0.1:1337/assets/images/avatar.jpg" />
           <span class="name">{{item.account.nickname}}</span>
-          <span class="time">{{item.updated_at|formatDate}}</span>
+          <span class="time">{{item.updated_at | formatDate}}</span>
           <div class="comment">
             <!-- 二级循环 -->
             <DetailComment2

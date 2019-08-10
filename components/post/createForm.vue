@@ -31,14 +31,24 @@
 </template>
 <script>
 export default {
-     data() {
+  props: {
+    data: {
+      type: Object,
+      default: {
+        city: 0,
+        title: "",
+        quill: ""
+      }
+    }
+  },
+  data() {
     return {
       num: 0,
       save: [
         //保存时间el-icon-edit
       ],
       selects: "", //城市输入框的值
-      cityId: '', //城市id
+      cityId: "", //城市id
       caption: "", //标题输入框的值
       content: "", //富文本框的值
       editorOption: {
@@ -64,18 +74,24 @@ export default {
       }
     };
   },
+  watch: {
+    data() {
+      this.selects = this.data.city;
+      this.caption = this.data.title;
+      this.content = this.data.quill;
+    }
+  },
   mounted() {
-
     //console.log(555,this.$store); //this.$store.state.post.draft
     if (!this.$store.state.post.draft.slice(0)) {
-       this.save = [] 
-    }else {
-       this.save = this.$store.state.post.draft.slice(0)
-       console.log(666,this.$store.state.post.draft.slice(0));
-       this.num = this.save.length 
+      this.save = [];
+    } else {
+      this.save = this.$store.state.post.draft.slice(0);
+      console.log(666, this.$store.state.post.draft.slice(0));
+      this.num = this.save.length;
     }
-    this.$emit('getDraft',{num:this.num, save:this.save})
-   
+    this.$emit("getDraft", { num: this.num, save: this.save });
+
     // console.log("app init, my quill insrance object is:", this.myQuillEditor);
     // setTimeout(() => {
     //   this.content = "";
@@ -95,22 +111,15 @@ export default {
     //   if (JSON.parse(localStorage.getItem("create") || "[]").length>1) {
     //       const createx = JSON.parse(localStorage.getItem("create") || "[]").slice(-1);
     //       localStorage.setItem("create", JSON.stringify(createx));
-    //   } 
+    //   }
     // }
 
     // this.save = this.$store.state.create.draft
   },
-  destroyed () {
-       this.$store.commit('post/setDraft',this.save)
+  destroyed() {
+    this.$store.commit("post/setDraft", this.save);
   },
   methods: {
-    
-    // 编辑草稿
-    reStrategy (item) {
-        this.selects = item.city
-        this.caption = item.title
-        this.content = item.quill
-    },
     onEditorBlur(editor) {
       //失去焦点事件
       // console.log("editor blur!", editor);
@@ -143,7 +152,7 @@ export default {
         const { data } = res.data;
         let newData = [];
         data.forEach(function(item, index) {
-          item.value = item.name
+          item.value = item.name;
           newData.push(item);
         });
         // newData = [...new Set(newData)];
@@ -155,7 +164,7 @@ export default {
     handleSelect(item) {
       // console.log('城市',item);
       this.selects = item.value;
-      this.cityId = item.id
+      this.cityId = item.id;
     },
     // 点击发布时触发
     handleIssue() {
@@ -178,7 +187,7 @@ export default {
         });
         return;
       }
-        // console.log(999,this.$store)
+      // console.log(999,this.$store)
       // 确认权限  没有权限时触发
       if (!this.$store.state.user.userInfo.token) {
         this.$confirm("请先登录再操作,按确认去登录", "提示", {
@@ -186,21 +195,21 @@ export default {
           cancelButtonText: "放弃发布",
           type: "warning"
         })
-        .then(() => {
-          this.$message({
-            type: "warning",
-            message: "稍等，正在跳转登录页"
+          .then(() => {
+            this.$message({
+              type: "warning",
+              message: "稍等，正在跳转登录页"
+            });
+            setTimeout(() => {
+              this.$router.push({ path: "/user/login" });
+            }, 1000);
+          })
+          .catch(() => {
+            this.$message({
+              type: "warning",
+              message: "您已取消发布"
+            });
           });
-          setTimeout(() => {
-            this.$router.push({ path: "/user/login" });
-          }, 1000);
-        })
-        .catch(() => {
-          this.$message({
-            type: "warning",
-            message: "您已取消发布"
-          });
-        });
         return;
       }
       // console.log('token',this.$store.state.user.userInfo.token);
@@ -260,40 +269,46 @@ export default {
       // 根据时间格式使用字符串和数值的拼接来输出
       var formatDateTime = year + "-" + month + "-" + date;
       // console.log(formatDateTime)
-      this.save.unshift({city:this.selects,quill:this.content,title:this.caption, saveDate: formatDateTime, writes: "el-icon-edit" });
+      this.save.unshift({
+        city: this.selects,
+        quill: this.content,
+        title: this.caption,
+        saveDate: formatDateTime,
+        writes: "el-icon-edit"
+      });
       if (this.save.length > 5) {
         this.save.length = 5;
       }
       // const create = JSON.parse(localStorage.getItem("create") || "[]");
       // create.push(this.save);
       // localStorage.setItem("create", JSON.stringify(create));
-      this.$emit('getDraft',{num:this.num, save:this.save})
+      this.$emit("getDraft", { num: this.num, save: this.save });
     }
   }
 };
 </script>
 <style lang="less" scoped>
-  .new {
-    font-size: 22px;
-    font-family: "simsun";
-    line-height: 30px;
-  }
-  .state {
-    font-size: 12px;
-    color: rgb(145, 141, 141);
-  }
-  .caption {
-    margin: 10px 0 20px;
-  }
-  .quill-editor {
-    min-height: 400px;
-    overflow-y: auto;
-  }
-  .states {
-    width: 20px;
-    margin: 0 3px 0 18px;
-  }
-  .selects {
-    margin-top: 15px;
-  }
+.new {
+  font-size: 22px;
+  font-family: "simsun";
+  line-height: 30px;
+}
+.state {
+  font-size: 12px;
+  color: rgb(145, 141, 141);
+}
+.caption {
+  margin: 10px 0 20px;
+}
+.quill-editor {
+  min-height: 400px;
+  overflow-y: auto;
+}
+.states {
+  width: 20px;
+  margin: 0 3px 0 18px;
+}
+.selects {
+  margin-top: 15px;
+}
 </style>
