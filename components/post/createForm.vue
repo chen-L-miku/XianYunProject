@@ -227,6 +227,9 @@ export default {
       }).then(res => {
         this.$message.success("恭喜，发布成功！");
       });
+      this.selects = ''
+      this.caption = ''
+      this.content = ''
     },
     // 点击保存到草稿箱时触发
     handleSave() {
@@ -283,6 +286,9 @@ export default {
       // create.push(this.save);
       // localStorage.setItem("create", JSON.stringify(create));
       this.$emit("getDraft", { num: this.num, save: this.save });
+       this.selects = ''
+       this.caption = ''
+       this.content = ''
     }
   }
 };

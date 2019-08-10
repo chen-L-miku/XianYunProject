@@ -31,7 +31,7 @@ export default {
   data(){
     return{
      getdata:{
-        id:20 //酒店id(酒店详情)
+        id:18 //酒店id(酒店详情)
      },
       listData:[]
     }
