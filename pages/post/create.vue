@@ -1,8 +1,8 @@
 <template xmlns:v-quill='富文本编辑器'>
   <div class="container">
     <el-row :gutter="70">
-      <createForm @getDraft = "deal"></createForm>
-      <createAside :data = "saves"></createAside>
+      <createForm @getDraft = "deal" :data = "items"></createForm>
+      <createAside @emitItem = "deals" :data = "saves"></createAside>
     </el-row>
   </div>
 </template>
@@ -12,7 +12,8 @@ import createAside from '@/components/post/createAside'
 export default {
   data () {
       return {
-        saves: {}
+        saves: {},
+        items: {}
       }
   },
   components: {
@@ -22,6 +23,9 @@ export default {
   methods: {
     deal (data) {
         this.saves = data
+    },
+    deals (data) {
+        this.items = data
     }
   }
 };

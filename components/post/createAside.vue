@@ -32,6 +32,16 @@ export default {
         if (!this.data.num) {
             this.data.num = 0
         }
+    },
+    methods: {
+        
+    // 编辑草稿
+    reStrategy (item) {
+        // this.selects = item.city
+        // this.caption = item.title
+        // this.content = item.quill
+        this.$emit('emitItem',item)
+    },
     }
 };
 </script>
