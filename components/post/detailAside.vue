@@ -49,6 +49,7 @@ export default {
   mounted() {
     this.getRaidersArticle();
   },
+  //时间过滤器
   filters: {
     formatDate: function(value) {
       let date = new Date(value);

@@ -41,8 +41,8 @@
 export default {
   props: {
     data: {
-      type: Number,
-      default: 0
+      type:Number,
+      default: 0,
     }
   },
   data() {

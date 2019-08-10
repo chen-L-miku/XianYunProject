@@ -20,7 +20,6 @@
           :on-remove="handleRemove"
           :on-success="handleSucess"
           :file-list="fileList"
-          :headers="getToken()"
           class="upload"
         >
           <i class="el-icon-plus"></i>
@@ -47,24 +46,9 @@
           <span class="time">{{item.updated_at|formatDate}}</span>
           <div class="comment">
             <!-- 二级循环 -->
-            <div class="cmt2-item">
-              <div class="cmt-concent">
-                <item v-if="item.parent" :item="item.parent" :index="index-1" />
-                <div class="cmt2-head">
-                  <span class="cmt2-name">{{item.account.nickname}}</span>
-                  <span class="cmt2-time">{{item.updated_at|formatDate}}</span>
-                  <span class="cmt2-index">{{index}}</span>
-                </div>
-                <div class="comment2">
-                  <p>{{item.content}}</p>
-                  <span class="replybtn" style="float: left;">回复</span>
-                </div>
-              </div>
-            </div>
-            <p>
-              {{item.content}}
-              <span class="replybtn" style="float: left;">回复</span>
-            </p>
+            <DetailComment2 v-if="item.parent" :item="item.parent" @reply="reply" :index="item|index" />
+            <p>{{item.content}}</p>
+            <span class="replybtn" style="float:right;" @click="ReplyComment">回复</span>
             <div class="img" v-if="item.pics.length">
               <div
                 :style="`background-image: url('http://157.122.54.189:9095${item.pics[0].url}');`"
@@ -79,7 +63,7 @@
       <span @click="$emit('tocommentposition')">评论</span>吧~
     </div>
     <!-- 分页功能 -->
-    <div class="block">
+    <div class="block" style="margin-top:10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -93,7 +77,11 @@
   </div>
 </template>
 <script>
+import DetailComment2 from "@/components/post/postcomment/detailComment2.vue"
 export default {
+  components:{
+     DetailComment2
+  },
   data() {
     return {
       dialogImageUrl: "",
@@ -113,14 +101,17 @@ export default {
         content: "",
         pics: [],
         post: 0
-      }
+      },
+      // 图案墙的集合
+      fileList: []
     };
   },
   methods: {
-    //获取请求头
-    getToken() {
-      let token = this.$store.state.user.userInfo.token;
-      return { Authorization: token };
+     // 回复
+    reply(item) {
+      let user = item.account;
+      user.ryid = item.id;
+      this.$emit("greplyuser", user);
     },
     //移除图片
     handleRemove(file, fileList) {
@@ -278,18 +269,14 @@ export default {
           height: 16px;
           width: 16px;
         }
-        .comment {
-          .cmt2-item {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 2px;
-            .cmt-concent {
-              padding: 5px 10px 0;
-            }
-          }
-        }
       }
     }
+  }
+  .nocomments {
+    max-width: 700px;
+    min-height: 70px;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
   }
 }
 </style>
