@@ -58,7 +58,7 @@ export default {
 
 <style lang='less' scoped>
 .item > div:first {
-  padding: 2px;
+  padding:1px;
 }
 .item {
   position: relative;

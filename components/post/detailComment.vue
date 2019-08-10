@@ -2,6 +2,15 @@
   <div class="comment-text">
     <div class="cmt-warpper">
       <h4 class="cmt-titel">评论</h4>
+      <!-- 回复评论时显示被评论用户的昵称 -->
+      <el-tag
+        size="small"
+        closable
+        :disable-transitions="false"
+        @close="handleClose(tag)"
+        style="margin-bottom:5px;"
+        v-if="usershow"
+      >回复@{{username}}</el-tag>
       <!-- 评论框发表评论框 -->
       <el-input
         type="textarea"
@@ -46,13 +55,14 @@
           <span class="time">{{item.updated_at|formatDate}}</span>
           <div class="comment">
             <!-- 二级循环 -->
-            <DetailComment2 v-if="item.parent" :item="item.parent"  @ReplyComment="ReplyComment" :index="item|index" />
+            <DetailComment2
+              v-if="item.parent"
+              :item="item.parent"
+              @ReplyComment="ReplyComment"
+              :index="item|index"
+            />
             <p style="font-size:14px;color:black;">{{item.content}}</p>
-            <span
-              class="replybtn"
-              style="float:right;"
-              @click="ReplyComment"
-            >回复</span>
+            <span class="replybtn" style="float:right;" @click="ReplyComment">回复</span>
             <div class="img" v-if="item.pics.length">
               <div
                 :style="`background-image: url('http://157.122.54.189:9095${item.pics[0].url}');`"
@@ -102,12 +112,14 @@ export default {
       commentList: [],
       //文件上传时的数据
       form: {
+        //文本框的值
         content: "",
         pics: [],
         post: 0
       },
       // 图案墙的集合
-      fileList: []
+      fileList: [],
+      usershow: false
     };
   },
   methods: {
@@ -130,9 +142,10 @@ export default {
     },
     //图片上传成功时触发的钩子函数
     handleSuccess(response, file, fileList) {
-      console.log(response);
+      (this.form.pic = file), console.log(1234567, response);
+
       if (response.meta.status === 200) {
-        // 我们要的数据就在response，我们要将上传成功之后的图片的路径(相对路径)存储到addForm的pics中
+        // 我们要的数据就在response，我们要将上传成功之后的图片的路径(相对路径)存储到Form的pics中
         this.form.pics.push({ pic: response.data.tmp_path });
       }
     },
@@ -164,10 +177,21 @@ export default {
         this.$router.replace({ path: "/user/login" });
         return false;
       }
+      this.form.post = this.$route.query.id;
+      var data = this.form;
+      console.log(data);
+      this.getCommentList()
     },
     // 点击回复按钮时聚焦到评论框添加评论
     ReplyComment() {
       console.log(12345);
+      this.usershow = true;
+      /* const username=this.item.account.nickname */
+    },
+    //删除标签时触发
+    handleClose() {
+      this.usershow = false;
+      //清空输入框的值
     },
     // 获取文章评论
     getCommentList() {
@@ -274,7 +298,7 @@ export default {
           width: 16px;
         }
         .comment {
-           .replybtn {
+          .replybtn {
             display: none;
             bottom: 3px;
             right: 3px;
