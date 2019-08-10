@@ -18,7 +18,7 @@
           list-type="picture-card"
           :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"
-          :on-success="handleSucess"
+          :on-success="handleSuccess"
           :file-list="fileList"
           class="upload"
         >
@@ -46,9 +46,13 @@
           <span class="time">{{item.updated_at | formatDate}}</span>
           <div class="comment">
             <!-- 二级循环 -->
-            <DetailComment2 v-if="item.parent" :item="item.parent" @reply="reply" :index="item | index" />
-            <p>{{item.content}}</p>
-            <span class="replybtn" style="float:right;" @click="ReplyComment">回复</span>
+            <DetailComment2 v-if="item.parent" :item="item.parent"  @ReplyComment="ReplyComment" :index="item|index" />
+            <p style="font-size:14px;color:black;">{{item.content}}</p>
+            <span
+              class="replybtn"
+              style="float:right;"
+              @click="ReplyComment"
+            >回复</span>
             <div class="img" v-if="item.pics.length">
               <div
                 :style="`background-image: url('http://157.122.54.189:9095${item.pics[0].url}');`"
@@ -60,7 +64,7 @@
     </div>
     <div class="nocomments" v-else>
       空空如也，快去
-      <span @click="$emit('tocommentposition')">评论</span>吧~
+      <span @click="ReplyComment">评论</span>吧~
     </div>
     <!-- 分页功能 -->
     <div class="block" style="margin-top:10px;">
@@ -77,10 +81,10 @@
   </div>
 </template>
 <script>
-import DetailComment2 from "@/components/post/postcomment/detailComment2.vue"
+import DetailComment2 from "@/components/post/postcomment/detailComment2.vue";
 export default {
-  components:{
-     DetailComment2
+  components: {
+    DetailComment2
   },
   data() {
     return {
@@ -93,7 +97,7 @@ export default {
         _limit: 2
       },
       // 总条数
-      total: "",
+      total: 0,
       //评论的数据
       commentList: [],
       //文件上传时的数据
@@ -107,12 +111,12 @@ export default {
     };
   },
   methods: {
-     // 回复
-    reply(item) {
+    // 回复
+    /*  reply(item) {
       let user = item.account;
       user.ryid = item.id;
       this.$emit("greplyuser", user);
-    },
+    }, */
     //移除图片
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -136,8 +140,8 @@ export default {
     handleSizeChange(size) {
       // 修改分页条数
       this.page._limit = size;
-      // 获取分页的数据
-      this.getDataList();
+      //重新发请求获取文章评论数据
+      this.getCommentList();
     },
 
     // 切换页数时候触发
@@ -145,17 +149,8 @@ export default {
       // 修改页数
       this.page._start = pagenum;
 
-      // 获取分页的数据
-      this.getDataList();
-    },
-
-    // 获取分页的数据
-    getDataList(commentList) {
-      // 修改dataList的数据 //0 | 2 //2 | 4
-      /*   this.dataList = this.flightsData.flights.slice(
-        (this.pageIndex - 1) * this.pageSize,
-        (this.pageIndex - 1) * this.pageSize + this.pageSize
-      ); */
+      //重新发请求获取文章评论数据
+      this.getCommentList();
     },
     //添加评论
     addConment() {
@@ -170,6 +165,10 @@ export default {
         return false;
       }
     },
+    // 点击回复按钮时聚焦到评论框添加评论
+    ReplyComment() {
+      console.log(12345);
+    },
     // 获取文章评论
     getCommentList() {
       let params = { ...this.page };
@@ -179,7 +178,6 @@ export default {
         params
       })
         .then(res => {
-          console.log(1111111111, res);
           this.commentList = res.data.data;
           this.total = res.data.total;
         })
@@ -226,6 +224,12 @@ export default {
       }
       return index;
     }
+  },
+  // 监听路由的变化
+  watch: {
+    $route() {
+      this.getCommentList();
+    }
   }
 };
 </script>
@@ -268,6 +272,22 @@ export default {
         img {
           height: 16px;
           width: 16px;
+        }
+        .comment {
+           .replybtn {
+            display: none;
+            bottom: 3px;
+            right: 3px;
+            font-size: 12px;
+            color: royalblue;
+            cursor: pointer;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+          &:hover > .replybtn {
+            display: block;
+          }
         }
       }
     }
