@@ -37,18 +37,15 @@ export default {
 <style lang="less" scoped>
 .container {
   width: 1000px;
-  height: 1500px;
   margin: 10px auto;
 
   .postleft{
     width:300px;
-    height: 1500px;
     // border: 1px solid red;
     z-index: 3;
   }
   .postright{
     width:700px;
-      height: 1500px;
     // border: 1px solid red;
     z-index: 1;
     margin-left: 20px;

@@ -225,7 +225,8 @@ export default {
           city: this.cityId
         }
       }).then(res => {
-        this.$message.success("恭喜，发布成功！");
+        console.log(222,res);
+        this.$message.success(res.data.message);
       });
       this.selects = ''
       this.caption = ''
