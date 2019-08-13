@@ -9,10 +9,17 @@
         <div class="grid-content bg-purple">
           <div class="clearfix" style="margin-bottom:8px">
             <span style="float: left;">价格</span>
+<<<<<<< HEAD
             <span style="float:right;" >1-4000</span>
           </div>
           <div class="grid-content bg-purple">
             <el-slider v-model="value" @change="getprice(value)" :max='4000' :mix='1'></el-slider>
+=======
+            <span style="float:right;">1-4000</span>
+          </div>
+          <div class="grid-content bg-purple">
+            <el-slider v-model="value"></el-slider>
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
           </div>
         </div>
       </el-col>
@@ -22,7 +29,11 @@
           <el-dropdown>
             <span class="el-dropdown-link">
               {{str||'不限'}}
+<<<<<<< HEAD
               <i class="el-icon-arrow-down el-icon--right" style="padding-left:40px"></i>
+=======
+              <i class="el-icon-arrow-down el-icon--right" style="padding-left:50px"></i>
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
             </span>
             <el-dropdown-menu slot="dropdown" placement="top-start">
               <el-dropdown-item
@@ -43,7 +54,11 @@
           <el-dropdown>
             <span class="el-dropdown-link">
               {{tion||'不限'}}
+<<<<<<< HEAD
               <i class="el-icon-arrow-down el-icon--right" style="padding-left:40px"></i>
+=======
+              <i class="el-icon-arrow-down el-icon--right" style="padding-left:50px"></i>
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
             </span>
             <el-dropdown-menu slot="dropdown" placement="top-start">
               <el-dropdown-item
@@ -64,7 +79,11 @@
           <el-dropdown name="不限">
             <span class="el-dropdown-link">
               {{litie||'不限'}}
+<<<<<<< HEAD
               <i class="el-icon-arrow-down el-icon--right" style="padding-left:40px"></i>
+=======
+              <i class="el-icon-arrow-down el-icon--right" style="padding-left:50px"></i>
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
             </span>
             <el-dropdown-menu slot="dropdown" placement="top-start">
               <el-dropdown-item
@@ -87,7 +106,11 @@
               {{brands||'不限'}}
               <i
                 class="el-icon-arrow-down el-icon--right"
+<<<<<<< HEAD
                 style="padding-left:40px"
+=======
+                style="padding-left:50px"
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
               ></i>
             </span>
             <el-dropdown-menu slot="dropdown" placement="top-start" style="overflow:scroll;">
@@ -136,6 +159,7 @@ export default {
     };
   },
   methods: {
+<<<<<<< HEAD
     getprice(value){
       console.log('sss',value);
       if(value<2000){
@@ -150,6 +174,8 @@ export default {
         })
       }
     },
+=======
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
     getStar(item) {
       this.str = item;
       this.$emit("setSelect", item);
@@ -157,7 +183,14 @@ export default {
     getBrand(item) {
       console.log("品牌", item);
       this.brands = item;
+<<<<<<< HEAD
        this.$emit("gethotel",this.brands);
+=======
+      //  let hotel=this.brand.filter(value=>{
+      //   return value.name===item
+      // })
+       this.$emit("gethotel",hotel);
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
     },
     getFacilitie(item) {
       console.log("设施", item);

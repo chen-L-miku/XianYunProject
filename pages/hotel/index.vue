@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
 <template>
   <div class="hotel">
     <!-- 面包屑 -->
@@ -16,7 +22,11 @@
       <Select @setSelect="setSelect " @gettion="gettion" @getLitie="getLitie" @gethotel="gethotel" />
     </div>
     <!-- 酒店列表 -->
+<<<<<<< HEAD
     <div class="hotelList" >
+=======
+    <div class="hotelList">
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
       <!-- 里面有几条数据子组件就会循环几次,就会展示几条 -->
       <HotelList :data="hotelList" />
     </div>
@@ -103,7 +113,11 @@ export default {
       let allHoteltype = hoteltype.filter(item => {
         return item.hoteltype.name === name;
       });
+<<<<<<< HEAD
       // console.log("第三次", allHoteltype);
+=======
+      console.log("第三次", allHoteltype);
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
       if (allHoteltype) {
         this.pageNum = 1;
         this.hotelList = allHoteltype;
@@ -179,3 +193,7 @@ export default {
   height: 0;
 }
 </style>
+<<<<<<< HEAD
+=======
+>>>>>>> ebe3fd72364b23a123bbc21ae3240e54443e1ff1
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b

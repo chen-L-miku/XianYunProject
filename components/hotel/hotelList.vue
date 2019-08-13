@@ -84,10 +84,14 @@ export default {
     getId(id){
       console.log('id',id);
       this.$router.push({
+<<<<<<< HEAD
         path:'/hotel/hotelDetails',
         query:{
           id
         }
+=======
+        path:'/hotel/hotelDetails/'+id,
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
       })
     }
   }
