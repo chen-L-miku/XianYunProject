@@ -1,6 +1,10 @@
 <template>
   <div class="hotels">
     <el-row justify="space-around">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 137f8eca3fea6b27a90ec68f76c091ece2703c31
       <el-input
         placeholder="请输入地方"
         style="width:25%"
@@ -8,6 +12,12 @@
         @change="getInput"
         @click="getcity(val)"
       ></el-input>
+<<<<<<< HEAD
+=======
+=======
+      <el-input placeholder="请输入地方" style="width:25%" v-model="val" @change="getInput"></el-input>
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
+>>>>>>> 137f8eca3fea6b27a90ec68f76c091ece2703c31
       <el-date-picker
         v-model="value"
         type="daterange"
@@ -56,7 +66,15 @@
           <i class="el-input__icon iconfont iconuser" slot="suffix"></i>
         </el-input>
       </el-popover>
+<<<<<<< HEAD
       <el-button type="primary" style="width:12%" @click="getprice">查看价格</el-button>
+=======
+<<<<<<< HEAD
+      <el-button type="primary" style="width:12%" @click="getprice">查看价格</el-button>
+=======
+      <el-button type="primary" style="width:12%">查看价格</el-button>
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
+>>>>>>> 137f8eca3fea6b27a90ec68f76c091ece2703c31
     </el-row>
     <el-row style="margin-top:30px;">
       <el-col :span="12">
@@ -139,12 +157,21 @@ export default {
     };
   },
   methods: {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 137f8eca3fea6b27a90ec68f76c091ece2703c31
     getprice(){
       this.$message({
         type:'warning',
         message:'抱歉,暂时没有价格查询'
       })
     },
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
+>>>>>>> 137f8eca3fea6b27a90ec68f76c091ece2703c31
     getInputs() {
       if ((this.str && this.strs) || this.str || this.strs) {
         this.arr = this.str + "成人" + this.strs + "儿童";
@@ -171,6 +198,10 @@ export default {
     getInput(val) {
       this.val = val;
       let add = this.val;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 137f8eca3fea6b27a90ec68f76c091ece2703c31
       // console.log('dddd',val);
       this.$emit("getAddress", add);
       if (val !== "南京") {
@@ -184,10 +215,20 @@ export default {
          this.getcity();
       }
      
+<<<<<<< HEAD
+=======
+=======
+      this.$emit("getAddress", add);
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
+>>>>>>> 137f8eca3fea6b27a90ec68f76c091ece2703c31
     },
     // 选择时间列表时
     getUserDate(value) {
       // console.log("时间", value);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 137f8eca3fea6b27a90ec68f76c091ece2703c31
     },
     getcity(val) {
       console.log('2222',this.val);
@@ -225,6 +266,44 @@ export default {
       // 将创建的点标记添加到已有的地图实例：
       map.add(marker);
     };
+<<<<<<< HEAD
+=======
+=======
+    }
+  },
+  mounted() {
+    this.$axios({
+      url: "/cities",
+      params: {
+        name: "南京"
+      }
+    }).then(res => {
+      let { scenics } = res.data.data[0];
+      let name = [];
+      scenics.forEach(function(item, index) {
+        name.push(item.name);
+      });
+      // console.log("酒店",name );
+      this.address = name;
+    }),
+      (window.onLoad = function() {
+        var map = new AMap.Map("container", {
+          zoom: 11, //级别
+          center: [118.8718107, 31.32846821], //中心点坐标
+          viewMode: "3D" //使用3D视图
+        });
+
+        // 创建一个 Marker 实例：
+        var marker = new AMap.Marker({
+          position: new AMap.LngLat(118.8718107, 31.32846821), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+          title: "北京"
+        });
+
+        // 将创建的点标记添加到已有的地图实例：
+        map.add(marker);
+      });
+>>>>>>> 06476ddadd60383c59a841b9f87f3783bac4987b
+>>>>>>> 137f8eca3fea6b27a90ec68f76c091ece2703c31
 
     var url =
       "https://webapi.amap.com/maps?v=1.4.15&key=dbd5d8fc043f5460acb93c3989659975&callback=onLoad";
