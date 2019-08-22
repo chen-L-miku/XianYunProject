@@ -6,14 +6,6 @@
         justify="center" 
         align="middle" 
         class="main">
-
-
-
-
-
-
-
-
             <div class="form-wrapper">
                 <!-- 表单头部tab -->
                 <el-row type="flex" justify="center" class="tabs">
